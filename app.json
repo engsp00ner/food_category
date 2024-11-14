@@ -3,10 +3,11 @@
     "name": "food_category",
     "slug": "food_category",
     "version": "1.0.0",
-    "orientation": "portrait",
+    "orientation": "default",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
+    "backgroundColor":"#24180f",
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
