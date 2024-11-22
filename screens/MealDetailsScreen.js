@@ -1,11 +1,14 @@
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, View, ScrollView } from "react-native";
+import { useLayoutEffect } from "react";
+
 import { MEALS } from "../Data/dummy-data";
 
 import { imageMapping } from "../Data/imageMapping";
 import MealDetail from "../Components/MealDetail";
 import Subtitle from "../Components/MealDetail/Subtitle";
 import List from "../Components/MealDetail/List";
-function MealDetailsScreen({ route }) {
+import IconButton from "../Components/IconButton";
+function MealDetailsScreen({ route, navigation }) {
   const { mealId } = route.params;
   const {
     title,
@@ -19,10 +22,32 @@ function MealDetailsScreen({ route }) {
   const imageSource = imageMapping[imageUrl];
   console.log("imageUrl", imageUrl);
   console.log("imageSource :", imageSource);
+  function HandleHeaderButtonPressed() {
+    console.log("mealId :", mealId);
+  }
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      title: title,
+      headerRight: () => {
+        return (
+          <IconButton
+            icon="star"
+            color="white"
+            onPress={HandleHeaderButtonPressed}
+          />
+        );
+      },
+    });
+  }, [navigation]);
   return (
     <>
-      <View style={styles.baseContainer}>
-        {imageSource && <Image source={imageSource} style={styles.image} />}
+      <ScrollView style={styles.baseContainer}>
+        {imageSource && (
+          <Image
+            source={imageSource}
+            style={styles.image}
+          />
+        )}
         <Text style={styles.title}>{title}</Text>
 
         <MealDetail
@@ -31,17 +56,15 @@ function MealDetailsScreen({ route }) {
           complexity={complexity}
           textStyle={styles.detailText}
         />
-        <Subtitle>ingredients</Subtitle>
-        <List iteamsList={ingredients} />
-        <Subtitle>Steps</Subtitle>
-
-        {steps.map((step, index) => (
-          <Text key={index}>
-            {" "}
-            {index + 1}- {step}
-          </Text>
-        ))}
-      </View>
+        <View style={styles.listOuterContainer}>
+          <View style={styles.listContainer}>
+            <Subtitle>ingredients</Subtitle>
+            <List iteamsList={ingredients} />
+            <Subtitle>Steps</Subtitle>
+            <List iteamsList={steps} />
+          </View>
+        </View>
+      </ScrollView>
     </>
   );
 }
@@ -49,6 +72,9 @@ function MealDetailsScreen({ route }) {
 export default MealDetailsScreen;
 
 const styles = StyleSheet.create({
+  baseContainer: {
+    marginBottom: 32,
+  },
   image: {
     width: "100%",
     height: 350,
@@ -61,4 +87,11 @@ const styles = StyleSheet.create({
     color: "white",
   },
   detailText: { color: "white" },
+  listOuterContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  listContainer: {
+    width: "80%",
+  },
 });

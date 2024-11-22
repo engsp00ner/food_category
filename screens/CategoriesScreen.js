@@ -33,7 +33,6 @@ function CategoriesScreen({ navigation }) {
   // Use rawItemsCount as part of the key to force re-render on numColumns change
   return (
     <View style={styles.container}>
-      <Text>List of all categories</Text>
       <FlatList
         data={CATEGORIES}
         keyExtractor={(item) => item.id}
