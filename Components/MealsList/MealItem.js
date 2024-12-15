@@ -7,8 +7,8 @@ import {
   Platform,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { imageMapping } from "../Data/imageMapping";
-import MealDetail from "./MealDetail";
+import { imageMapping } from "../../Data/imageMapping";
+import MealDetail from "../MealDetail";
 
 function MealItem({
   title,
@@ -38,11 +38,15 @@ function MealItem({
           styles.button,
           pressed ? styles.buttonPressed : null,
         ]}
-        onPress={handleOnMealItemPress}
-      >
+        onPress={handleOnMealItemPress}>
         <View style={styles.innerContainer}>
           <View>
-            {imageSource && <Image source={imageSource} style={styles.image} />}
+            {imageSource && (
+              <Image
+                source={imageSource}
+                style={styles.image}
+              />
+            )}
             <Text style={styles.title}>{title}</Text>
           </View>
           <MealDetail

@@ -39,5 +39,26 @@
       "const styles = StyleSheet.create({});"
     ],
     "description": "React Native component template with dynamic file name"
+  },
+
+  "React redux Component Template": {
+    "prefix": "rnred",
+    "body": [
+      "import { createContext } from \"react\";",
+      "",
+      "export const ${TM_FILENAME_BASE} = createContext({}); ",
+
+      "function ${TM_FILENAME_BASE}Provider({children}) {",
+      "  return (",
+      "    <>",
+      "      <${TM_FILENAME_BASE}.Provider>{children}</${TM_FILENAME_BASE}.Provider>",
+      "    </>",
+      "  );",
+      "}",
+      "",
+      "export default ${TM_FILENAME_BASE}Provider;",
+      ""
+    ],
+    "description": "React Redux component template with dynamic file name"
   }
 }
