@@ -9,11 +9,11 @@ import Subtitle from "../Components/MealDetail/Subtitle";
 import List from "../Components/MealDetail/List";
 import IconButton from "../Components/IconButton";
 import { useDispatch, useSelector } from "react-redux";
-
+import { addFavourite, removeFavourite } from "../STORE/Redux/Favourites";
 function MealDetailsScreen({ route, navigation }) {
   //we call the favourite redux store
   const favouriteMealIds = useSelector((state) => state.favouriteMeals.ids);
-  useDispatch();
+  const dispatch = useDispatch();
   //we can get the meal id from the navigator params
   const { mealId } = route.params;
   const {
@@ -33,8 +33,8 @@ function MealDetailsScreen({ route, navigation }) {
   console.log("imageSource :", imageSource);
   function ToggleFavouriteStatusHandler() {
     mealIsFavourite
-      ? favouriteMealsCtx.removeFavourite(mealId)
-      : favouriteMealsCtx.addFavourite(mealId);
+      ? dispatch(removeFavourite({ id: mealId }))
+      : dispatch(addFavourite({ id: mealId }));
     console.log("mealIsFavourite:", mealIsFavourite);
     console.log("mealId :", mealId);
   }
